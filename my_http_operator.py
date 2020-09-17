@@ -34,7 +34,7 @@ default_args = {
     'retry_delay': timedelta(minutes=5),
 }
 
-dag = DAG('example_http_operator', default_args=default_args, tags=['example'], start_date=datetime(2020, 10, 9))
+dag = DAG('example_http_operator', default_args=default_args, tags=['example'], start_date=datetime(2020, 9, 16))
 
 dag.doc_md = __doc__
 
