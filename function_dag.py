@@ -47,7 +47,7 @@ task_post_op = SimpleHttpOperator(
     http_conn_id='http_ibm_function',
     data=json.dumps({"name": "habib"}),
     headers={"Content-Type": "application/json"},
-    response_check=lambda response: response.json()['body'] == "Hello habib!",
+    response_check=lambda response: response.json()['result']['body'] == "Hello habib!",
     dag=dag,
 )
 # [END howto_operator_http_task_post_op]
@@ -60,7 +60,7 @@ task_post_op2 = SimpleHttpOperator(
     http_conn_id='http_ibm_function',
     data=json.dumps({"name": "khairul"}),
     headers={"Content-Type": "application/json"},
-    response_check=lambda response: response.json()['body'] == "Hello khairul!",
+    response_check=lambda response: response.json()['result']['body'] == "Hello khairul!",
     dag=dag,
 )
 # [END howto_operator_http_task_post_op]
