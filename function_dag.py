@@ -48,6 +48,7 @@ task_post_op = SimpleHttpOperator(
     data=json.dumps({"name": "habib"}),
     headers={"Content-Type": "application/json"},
     # response_check=lambda response: response.json()['result']['body'] == "Hello habib!",
+    response_check=lambda response: "habib" in response.text,
     log_response='true',
     dag=dag,
 )
@@ -62,6 +63,7 @@ task_post_op2 = SimpleHttpOperator(
     data=json.dumps({"name": "khairul"}),
     headers={"Content-Type": "application/json"},
     # response_check=lambda response: response.json()['result']['body'] == "Hello khairul!",
+    response_check=lambda response: "khairul" in response.text,
     log_response='true',
     dag=dag,
 )
