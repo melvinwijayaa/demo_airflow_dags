@@ -47,9 +47,4 @@ run_this = PythonOperator(
     python_callable=lithops_func,
     dag=dag)
 
-run_that = PythonOperator(
-    task_id='print_the_second_context',
-    python_callable=lithops_func,
-    dag=dag)
-
-run_this >> run_that
+run_this
