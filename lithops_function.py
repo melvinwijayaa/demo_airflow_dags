@@ -51,3 +51,5 @@ def my_reduce_function(results):
 def lithops_func(*op_args):
     fexec = lithops.FunctionExecutor(config=config)
     fexec.map_reduce(my_map_function, iterdata, my_reduce_function)
+    result = fexec.get_result()
+    print("Done! Result >> ",result)
