@@ -37,14 +37,21 @@ dag = DAG(
 def hello_world(name):
     return 'Hello {}!'.format(name)
 
-def lithops_func():
+def lithops_func(*op_args):
     fexec = lithops.FunctionExecutor(config=config)
-    fexec.call_async(hello_world, 'World')
-    print(fexec.get_result())
+    fexec.call_async(hello_world, op_args[0])
+    # print(fexec.get_result())
 
 run_this = PythonOperator(
     task_id='print_the_context',
     python_callable=lithops_func,
+    op_args=['World'],
     dag=dag)
 
-run_this
+run_that = PythonOperator(
+    task_id='second_context',
+    python_callable=lithops_func,
+    op_args=['Earth'],
+    dag=dag)
+
+run_this >> run_that
