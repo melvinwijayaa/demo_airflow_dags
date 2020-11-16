@@ -38,7 +38,7 @@ def hello_world(name):
     return 'Hello {}!'.format(name)
 
 def lithops_func():
-    fexec = lithops.FunctionExecutor(conf=config)
+    fexec = lithops.FunctionExecutor(config=config)
     fexec.call_async(hello_world, 'World')
     print(fexec.get_result())
 
