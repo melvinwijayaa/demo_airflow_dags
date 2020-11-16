@@ -1,6 +1,6 @@
 from __future__ import print_function
 from builtins import range
-from airflow.operators import PythonOperator
+from airflow.operators.python_operator import PythonOperator
 from airflow.models import DAG
 from datetime import datetime, timedelta
 import lithops
@@ -44,13 +44,11 @@ def lithops_func():
 
 run_this = PythonOperator(
     task_id='print_the_context',
-    provide_context=True,
     python_callable=lithops_func,
     dag=dag)
 
 run_that = PythonOperator(
     task_id='print_the_second_context',
-    provide_context=True,
     python_callable=lithops_func,
     dag=dag)
 
