@@ -5,7 +5,8 @@ from storage_util import upload_file
 config = {'lithops' : {'storage_bucket' : 'lithops-bucket-habib01',
                         'storage':'ibm_cos',
                         'mode':'serverless'},
-          'serverless':{'backend':'ibm_cf'},
+          'serverless':{'backend':'ibm_cf',
+                        'runtime':'khairulhabib/custom-runtime-fn:1.0.0'},
           'ibm':{'iam_api_key':'cLQhHWR28nlJaGOqo7j87L5akzoCizqQPvH_XooHHo3h'},
 
           'ibm_cf':  {'endpoint': 'https://us-south.functions.cloud.ibm.com',
