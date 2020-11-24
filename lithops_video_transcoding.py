@@ -2,7 +2,7 @@ import lithops
 import ffmpeg
 from storage_util import upload_file
 
-config = {'lithops' : {'storage_bucket' : 'lithops-bucket-habib01',
+config = {'lithops' : {'storage_bucket' : 'lithops-bucket01',
                         'storage':'ibm_cos',
                         'mode':'serverless'},
           'serverless':{'backend':'ibm_cf',
