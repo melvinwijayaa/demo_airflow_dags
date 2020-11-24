@@ -29,6 +29,6 @@ def process_video(input_url):
     f.close()
 
 def run(*op_args):
-    fexec = lithops.FunctionExecutor()
+    fexec = lithops.FunctionExecutor(config=config)
     fexec.call_async(process_video,op_args[0])
     result = fexec.get_result()
