@@ -19,20 +19,27 @@ def connect(tablename):
         password = 'a4285df0d0f18926f9c84591c78f91d402ab3d037e8ef6023f0fb4ff41e45043',
         host = 'c0ca2771-62ed-4c2a-862e-743fda10b364.bqfh4fpt0vhjh7rs4ot0.databases.appdomain.cloud',
         port = '32645')
-    
+        
     #Retrieve data -- change here
     cur1 = conn1.cursor()
     cur1.execute("SELECT id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, [type], model, serial_number, taggingno, memory, hdd, processor, license1, license2, license3, remark, buy_date, buy_price, buy_currency, po_number, location_id, category, isasset, receiving_date, name, brand, old_taggingno, delete_reason FROM "+ tablename)
     records = cur1.fetchall()
     #conn1.commit() -- no need to commit
 
+    #Delete data --change here
+    cur2 = conn2.cursor()
+    cur2.execute("DELETE FROM jtiiasset." +tablename)
+    conn2.commit()
+
+    print(cur2.rowcount, "Records deleted successfully from " +tablename)
+
     #Insert data -- change here
     cur2 = conn2.cursor()
-    cur2.executemany("INSERT INTO jtiiasset." +tablename+ " (id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, [type], model, serial_number, taggingno, memory, hdd, processor, license1, license2, license3, remark, buy_date, buy_price, buy_currency, po_number, location_id, category, isasset, receiving_date, name, brand, old_taggingno, delete_reason) \
+    cur2.executemany("INSERT INTO jtiiasset." +tablename+ " (id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, type, model, serial_number, taggingno, memory, hdd, processor, license1, license2, license3, remark, buy_date, buy_price, buy_currency, po_number, location_id, category, isasset, receiving_date, name, brand, old_taggingno, delete_reason) \
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",records)
     conn2.commit()
 
-    print(cur2.rowcount, "Record inserted successfully into mobile table")
+    print(cur2.rowcount, "Record inserted successfully into " +tablename)
 
 
 if __name__ == '__main__':
