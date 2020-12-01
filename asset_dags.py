@@ -17,10 +17,6 @@ default_args = {
 
 dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
 
-start = DummyOperator(
-    task_id = 'Start Pipeline',
-    dag=dag)
-
 asset_inventory = PythonOperator(
     task_id='asset_inventory',
     python_callable=connect,
