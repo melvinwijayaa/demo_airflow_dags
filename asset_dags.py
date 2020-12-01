@@ -1,6 +1,7 @@
 # airflow related
 from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.dummy_operator import DummyOperator
 
 # other packages
 from datetime import datetime, timedelta
@@ -15,6 +16,10 @@ default_args = {
 }
 
 dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
+
+start = DummyOperator(
+    task_id = 'Start Pipeline',
+    dag=dag)
 
 asset_inventory = PythonOperator(
     task_id='asset_inventory',
