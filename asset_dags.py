@@ -19,7 +19,7 @@ dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
 asset_inventory = PythonOperator(
     task_id='asset_inventory',
     python_callable=connect,
-    tablename='asset_inventory'
+    tablename='asset_inventory',
     dag=dag)
 
 asset_inventory_deployment = PythonOperator(
