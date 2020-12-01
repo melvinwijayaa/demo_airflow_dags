@@ -2,7 +2,7 @@ import pyodbc
 import psycopg2
 import lithops
 
-def connect(tablename):
+def asset_inventory_deployment(tablename):
 
     #Fixed conexion string for connecting sqlserver -- no need to change 
     conn1 = pyodbc.connect(
@@ -44,5 +44,5 @@ def connect(tablename):
 
 if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
-    fexec.call_async(connect,'asset_inventory_deployment')
+    fexec.call_async(asset_inventory_deployment,'asset_inventory_deployment')
     print(fexec.get_result())
