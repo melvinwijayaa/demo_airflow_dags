@@ -26,13 +26,20 @@ def connect(tablename):
     records = cur1.fetchall()
     #conn1.commit() -- no need to commit
 
+    #Delete data --change here
+    cur2 = conn2.cursor()
+    cur2.execute("DELETE FROM jtiiasset." +tablename)
+    conn2.commit()
+
+    print(cur2.rowcount, "Records deleted successfully from " +tablename)
+
     #Insert data -- change here
     cur2 = conn2.cursor()
     cur2.executemany("INSERT INTO jtiiasset." +tablename+ "(id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, date_deploy, date_undeploy, asset_id, city_deploy_id, city_undeploy_id, employee_samaccountname) \
         VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",records)
     conn2.commit()
 
-    print(cur2.rowcount, "Record inserted successfully into mobile table")
+    print(cur2.rowcount, "Record inserted successfully into " +tablename)
 
 
 if __name__ == '__main__':
