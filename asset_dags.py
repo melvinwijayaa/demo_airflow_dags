@@ -7,8 +7,8 @@ from airflow.operators.dummy_operator import DummyOperator
 from datetime import datetime, timedelta
 
 # import operators from the 'operators' file
-from asset_inventory import connect
-from asset_inventory_deployment import connect
+from asset_inventory import asset_inventory
+from asset_inventory_deployment import asset_inventory_deployment
 
 default_args = {
     "owner": "airflow",
@@ -19,13 +19,13 @@ dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
 
 asset_inventory = PythonOperator(
     task_id='asset_inventory',
-    python_callable=connect,
+    python_callable=asset_inventory,
     op_args=['asset_inventory'],
     dag=dag)
 
 asset_inventory_deployment = PythonOperator(
     task_id='asset_inventory_deployment',
-    python_callable=connect,
+    python_callable=asset_inventory_deployment,
     op_args=['asset_inventory_deployment'],
     dag=dag)
 
