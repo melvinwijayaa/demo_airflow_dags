@@ -15,12 +15,12 @@ default_args = {
     "start_date": datetime(2020, 12, 1),
 }
 
-dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
+dag = DAG("test_dag", default_args=default_args, schedule_interval=None)
 
 asset = PythonOperator(
-    task_id='Asset DAG',
+    task_id='Test DAG',
     python_callable=jti_lithops_function,
-    op_args=['Asset DAG'],
+    op_args=['Test DAG'],
     dag=dag)
 
 asset 
