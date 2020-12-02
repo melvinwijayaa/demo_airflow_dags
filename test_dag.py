@@ -18,9 +18,9 @@ default_args = {
 dag = DAG("test_dag", default_args=default_args, schedule_interval=None)
 
 asset = PythonOperator(
-    task_id='Test DAG',
+    task_id='test_dag',
     python_callable=jti_lithops_function,
-    op_args=['Test DAG'],
+    op_args=['test_dag'],
     dag=dag)
 
 asset 
