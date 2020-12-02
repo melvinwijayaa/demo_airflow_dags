@@ -27,11 +27,11 @@ config = {
     },
 }
 
-def start_task(name):
-    return 'Start DAG {}!'.format(name)
+def start_task(tablename):
+    #return 'Start DAG {}!'.format(name)
+    print("Start DAG", +tablename)
 
-def jti_lithops_function(*op_args):
+def jti_lithops_function(tablename):
     fexec = lithops.FunctionExecutor(config=config)
-    fexec.call_async(start_task, 'Asset DAG')
-    result = fexec.get_result()
-    print("Done! Result >> ",result)
+    fexec.call_async(start_task,tablename)
+    print(fexec.get_result())
