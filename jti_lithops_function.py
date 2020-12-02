@@ -29,7 +29,7 @@ config = {
 
 def start_task(tablename):
     #return 'Start DAG {}!'.format(name)
-    print("Start DAG", +tablename)
+    print("Start DAG" +tablename)
 
 def jti_lithops_function(tablename):
     fexec = lithops.FunctionExecutor(config=config)
