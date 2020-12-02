@@ -22,7 +22,7 @@ default_args = {
     "start_date": datetime(2020, 12, 1),
 }
 
-dag = DAG("asset_dag", default_args=default_args, schedule_interval=None)
+dag = DAG("jti_datalake_dags", default_args=default_args, schedule_interval=None)
 
 asset_inventory = PythonOperator(
     task_id='asset_inventory',
