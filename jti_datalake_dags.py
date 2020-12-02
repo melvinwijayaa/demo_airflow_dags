@@ -1,6 +1,7 @@
 # airflow related
 from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.operators.dummy_operator import DummyOperator
 
 # other packages
 from datetime import datetime, timedelta
