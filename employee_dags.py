@@ -1,6 +1,6 @@
 # airflow related
-from airflow import models
-from airflow import DAG
+from airflow.models import DAG
+from airflow.operators.python_operator import PythonOperator
 
 # other packages
 from datetime import datetime, timedelta
