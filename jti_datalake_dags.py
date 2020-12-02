@@ -122,6 +122,6 @@ livejtiipdbms >> personal >> staging_done
 livejtiipdbms >> superior >> staging_done
 livejtiipdbms >> jobactual >> jobactualcomposite >> staging_done
 livejtiipayroll >> staging_done
-staging_done >> datalake_start >> [dimension_start, fact_start]
-dimension_start >> dimension_done >> datalake_done
-fact_start >> fact_done >> datalake_done
+staging_done >> datalake_start >> dimension_start >> dimension_done >> fact_start >> fact_done >> datalake_done
+
+
