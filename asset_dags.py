@@ -9,6 +9,9 @@ from datetime import datetime, timedelta
 from asset_inventory import asset_inventory
 from asset_inventory_deployment import asset_inventory_deployment
 
+# import lithops function
+from jti_lithops_function import jti_lithops_function 
+
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2020, 12, 1),
