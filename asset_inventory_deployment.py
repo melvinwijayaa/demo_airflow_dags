@@ -42,7 +42,7 @@ def asset_inventory_deployment(tablename):
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
 
 
-#if __name__ == '__main__':
+if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
     fexec.call_async(asset_inventory_deployment,'asset_inventory_deployment')
     print(fexec.get_result())
