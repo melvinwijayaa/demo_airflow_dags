@@ -19,7 +19,7 @@ default_args = {
     "start_date": datetime(2020, 12, 1),
 }
 
-dag = DAG("employee_dag", default_args=default_args, schedule_interval=timedelta(1))
+dag = DAG("employee_dag", default_args=default_args, schedule_interval=None)
 
 personal = PythonOperator(
     task_id='personal',
