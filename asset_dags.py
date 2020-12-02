@@ -6,8 +6,8 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 
 # import operators from the 'operators' file
-from asset_inventory import asset_inventory
-from asset_inventory_deployment import asset_inventory_deployment
+from asset_inventory import asset_inventory_function
+from asset_inventory_deployment import asset_inventory_deployment_function
 
 # import lithops function
 #from jti_lithops_function import jti_lithops_function 
