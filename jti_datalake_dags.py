@@ -60,8 +60,10 @@ jobactualcomposite = PythonOperator(
     op_args=['jobactualcomposite'],
     dag=dag)
 
-#DummyOperator DAGS her
-staging_done = DummyOperator('Staging_Done', dag= dag)
+#DummyOperator DAGS here
+staging_done = DummyOperator(
+    task_id='Staging_Done',
+    dag=dag)
 
 asset_inventory >> asset_inventory_deployment >> staging_done
 personal >> staging_done
