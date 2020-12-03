@@ -138,7 +138,7 @@ livejtiipdbms >> personal >> staging_done
 livejtiipdbms >> superior >> staging_done
 livejtiipdbms >> jobactual >> jobactualcomposite >> staging_done
 livejtiipayroll >> staging_done
-staging_done >> datalake_start >> [OLAP_start, datamart_start]
-OLAP_start >> dimension_start >> dimension_done >> fact_start >> fact_done >> OLAP_start >> datalake_done
+staging_done >> datalake_start >> [olap_start, datamart_start]
+olap_start >> dimension_start >> dimension_done >> fact_start >> fact_done >> olap_done >> datalake_done
 datamart_start >> datamart_done >> datalake_done
 
