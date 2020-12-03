@@ -57,6 +57,22 @@ fact_done = DummyOperator(
     task_id='Fact_Done',
     dag=dag)
 
+datamart_start = DummyOperator(
+    task_id='DataMart_Start',
+    dag=dag)
+
+datamart_done = DummyOperator(
+    task_id='DataMart_Done',
+    dag=dag)
+
+olap_start = DummyOperator(
+    task_id='OLAP_Start',
+    dag=dag)
+
+olap_done = DummyOperator(
+    task_id='OLAP_Done',
+    dag=dag)
+
 #Add database staging here ...
 jtiiasset = DummyOperator(
     task_id='jtiiasset',
@@ -122,6 +138,7 @@ livejtiipdbms >> personal >> staging_done
 livejtiipdbms >> superior >> staging_done
 livejtiipdbms >> jobactual >> jobactualcomposite >> staging_done
 livejtiipayroll >> staging_done
-staging_done >> datalake_start >> dimension_start >> dimension_done >> fact_start >> fact_done >> datalake_done
-
+staging_done >> datalake_start >> [OLAP_start, datamart_start]
+OLAP_start >> dimension_start >> dimension_done >> fact_start >> fact_done >> OLAP_start >> datalake_done
+datamart_start >> datamart_done >> datalake_done
 
