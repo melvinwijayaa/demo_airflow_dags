@@ -22,7 +22,7 @@ default_args = {
     "start_date": datetime(2020, 12, 1),
 }
 
-dag = DAG("jti_datalake_dags", default_args=default_args, schedule_interval=None)
+dag = DAG("grace_dags", default_args=default_args, schedule_interval=None)
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
