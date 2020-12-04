@@ -6,15 +6,12 @@ from airflow.operators.python_operator import PythonOperator
 from datetime import datetime, timedelta
 
 # import operators from the 'operators' file
-from ASSET import ASSET_function
-from ASSETINVENT import ASSETINVENT_function
-from PERSONAL import PERSONAL_function
-from SUPERIOR import SUPERIOR_function
-from JOBACTUAL import JOBACTUAL_function
-from JOBACTUALCOMP import ASSETINVENT_function
-from STAGING_DONE import STAGING_DONE
-
-
+from asset_inventory import asset_inventory_function
+from asset_inventory_deployment import asset_inventory_deployment_function
+from personal import personal_function
+from superior import superior_function
+from jobactual import jobactual_function
+from jobactualcomposite import jobactualcomposite_function
 
 # import lithops function
 #from jti_lithops_function import jti_lithops_function 
