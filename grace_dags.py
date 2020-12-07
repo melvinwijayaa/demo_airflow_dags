@@ -9,6 +9,7 @@ from datetime import datetime, timedelta
 # import operators from the 'operators' file
 from asset_inventory import asset_inventory_function
 from asset_inventory_deployment import asset_inventory_deployment_function
+from license_deployment import license_deployment_function
 from personal import personal_function
 from superior import superior_function
 from jobactual import jobactual_function
@@ -106,6 +107,12 @@ asset_inventory_deployment = PythonOperator(
     op_args=['asset_inventory_deployment'],
     dag=dag)
 
+license_deployment = PythonOperator(
+    task_id='license_deployment',
+    python_callable=license_deployment_function,
+    op_args=['license_deployment'],
+    dag=dag)
+
 personal = PythonOperator(
     task_id='personal',
     python_callable=personal_function,
@@ -132,3 +139,4 @@ jobactualcomposite = PythonOperator(
 
 #DAG Sequences
 staging_start >> asset_inventory >> asset_inventory_deployment >> [personal, superior] >> jobactual >> jobactualcomposite >> staging_done
+license_deployment
