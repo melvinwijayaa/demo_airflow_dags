@@ -1,3 +1,4 @@
+
 import pyodbc
 import psycopg2
 import lithops
@@ -28,7 +29,10 @@ config = {
     #'secret_key' : <SECRET_KEY>  # Optional
     },
 }
-)    
+def license_function(tablename):
+    fexec = lithops.FunctionExecutor(config=config)
+    fexec.call_async(license,tablename)
+    print(fexec.get_result())    
     
 def license(tablename):
 
@@ -36,7 +40,7 @@ def license(tablename):
     conn1 = pyodbc.connect(
         'DRIVER={ODBC Driver 17 for SQL Server};'
         'SERVER=cap-au-sg-prd-04.securegateway.appdomain.cloud,15275;'
-        'DATABASE=jtiiasset;' #change database
+        'DATABASE=jtiiasset;'
         'UID=sa;'
         'PWD=Pas5word')
 
@@ -47,10 +51,10 @@ def license(tablename):
         password = 'a4285df0d0f18926f9c84591c78f91d402ab3d037e8ef6023f0fb4ff41e45043',
         host = 'c0ca2771-62ed-4c2a-862e-743fda10b364.bqfh4fpt0vhjh7rs4ot0.databases.appdomain.cloud',
         port = '32645')
-    
+        
     #Retrieve data -- change here
     cur1 = conn1.cursor()
-    cur1.execute("SELECT id, stat, createdby, createddate, createdip, updatedby, license_key, software_name, remark, buy_date, buy_price, buy_currency, po_number, expiry_date, employee_samaaccountname FROM "+ tablename)
+    cur1.execute("SELECT id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip FROM "+ tablename)
     records = cur1.fetchall()
     #conn1.commit() -- no need to commit
 
@@ -63,18 +67,13 @@ def license(tablename):
 
     #Insert data -- change here
     cur2 = conn2.cursor()
-    cur2.executemany("INSERT INTO jtiiasset." +tablename+ "(id, stat, createdby, createddate, createdip, updatedby, license_key, software_name, remark, buy_date, buy_price, buy_currency, po_number, expiry_date, employee_samaaccountname) \
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",records)
+    cur2.executemany("INSERT INTO jtiiasset." +tablename+ "(id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip) \
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",records)
     conn2.commit()
 
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
-
-def license_function(tablename):
-    fexec = lithops.FunctionExecutor(config=config)
-    fexec.call_async(license,tablename)
-    print(fexec.get_result()
-
+    
 if __name__ == '__main__':
-    fexec = lithops.FunctionExecutor()
+    fexec = lithops.FunctionExecutor(config=config)
     fexec.call_async(license,'license')
     print(fexec.get_result())
