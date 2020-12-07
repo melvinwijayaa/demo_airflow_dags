@@ -28,10 +28,7 @@ config = {
     #'secret_key' : <SECRET_KEY>  # Optional
     },
 }
-def license(tablename):
-    fexec = lithops.FunctionExecutor(config=config)
-    fexec.call_async(jobactual,tablename)
-    print(fexec.get_result())    
+)    
     
 def license(tablename):
 
@@ -71,6 +68,11 @@ def license(tablename):
     conn2.commit()
 
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
+
+def license_function(tablename):
+    fexec = lithops.FunctionExecutor(config=config)
+    fexec.call_async(license,tablename)
+    print(fexec.get_result()
 
 if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
