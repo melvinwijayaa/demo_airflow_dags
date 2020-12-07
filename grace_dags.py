@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 # import operators from the 'operators' file
 from asset_inventory import asset_inventory_function
 from asset_inventory_deployment import asset_inventory_deployment_function
-from license_deployment import asset_deployment_function
+from license_deployment import license_deployment_function
 from personal import personal_function
 from superior import superior_function
 from jobactual import jobactual_function
@@ -138,4 +138,5 @@ jobactualcomposite = PythonOperator(
     dag=dag)
 
 #DAG Sequences
-staging_start >> asset_inventory >> asset_inventory_deployment >> license_deployment >> [personal, superior] >> jobactual >> jobactualcomposite >> staging_done
+staging_start >> asset_inventory >> asset_inventory_deployment >> [personal, superior] >> jobactual >> jobactualcomposite >> staging_done
+license_deployment
