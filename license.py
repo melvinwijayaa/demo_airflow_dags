@@ -1,143 +1,79 @@
 
-# airflow related
-from airflow.models import DAG
-from airflow.operators.python_operator import PythonOperator
-from airflow.operators.dummy_operator import DummyOperator
+import pyodbc
+import psycopg2
+import lithops
 
-
-# other packages
-from datetime import datetime, timedelta
-
-# import operators from the 'operators' file
-from asset_inventory import asset_inventory_function
-from asset_inventory_deployment import asset_inventory_deployment_function
-from license import license_function
-from personal import personal_function
-from superior import superior_function
-from jobactual import jobactual_function
-from jobactualcomposite import jobactualcomposite_function
-
-# import lithops function
-#from jti_lithops_function import jti_lithops_function 
-
-default_args = {
-    "owner": "airflow",
-    "start_date": datetime(2020, 12, 1),
+config = {
+'lithops': {
+    'storage': 'ibm_cos',
+    'storage_bucket': 'bucket-jti',
+    'mode': 'serverless'
+    },
+'serverless':{
+    'backend': 'ibm_cf',
+    'runtime': 'khairulhabib/lithops-runtime-datalake:1.0.1'
+    },
+'ibm':{
+    'iam_api_key': 'L8cWWexAcTm8K-XtlthzkwtNxZjxQwtnCcwr4Gj0qhkg'
+    },
+'ibm_cf':{
+    'endpoint'     : 'https://jp-tok.functions.cloud.ibm.com',
+    'namespace'    : 'JTI Dev',
+    'namespace_id' : 'f02917fc-e645-4850-9dea-5f27b541b933'
+    },
+'ibm_cos':{
+    'endpoint'    : 'https://s3.au-syd.cloud-object-storage.appdomain.cloud',
+    'private_endpoint': 'https://s3.private.au-syd.cloud-object-storage.appdomain.cloud',
+    'api_key '    : 'p6D4IagLwAXetJCWAzlsyzPnWezeIPicE-2j2LggG7HO'
+    #'access_key' : <ACCESS_KEY>  # Optional
+    #'secret_key' : <SECRET_KEY>  # Optional
+    },
 }
+def license_function(tablename):
+    fexec = lithops.FunctionExecutor(config=config)
+    fexec.call_async(license,tablename)
+    print(fexec.get_result())    
+    
+def license(tablename):
 
-dag = DAG("license_dag", default_args=default_args, schedule_interval=None)
+    #Fixed conexion string for connecting sqlserver -- no need to change 
+    conn1 = pyodbc.connect(
+        'DRIVER={ODBC Driver 17 for SQL Server};'
+        'SERVER=cap-au-sg-prd-04.securegateway.appdomain.cloud,15275;'
+        'DATABASE=jtiiasset;'
+        'UID=sa;'
+        'PWD=Pas5word')
 
-#DummyOperator DAGS here
-staging_start = DummyOperator(
-    task_id='Staging_Start',
-    dag=dag)
+    #Fixed conexion string for connecting postgresql -- no need to change     
+    conn2 = psycopg2.connect(
+        database = 'ibmclouddb' ,
+        user = 'ibm_cloud_f261f536_a6f2_4fec_b8e9_55016c16b459' ,
+        password = 'a4285df0d0f18926f9c84591c78f91d402ab3d037e8ef6023f0fb4ff41e45043',
+        host = 'c0ca2771-62ed-4c2a-862e-743fda10b364.bqfh4fpt0vhjh7rs4ot0.databases.appdomain.cloud',
+        port = '32645')
+        
+    #Retrieve data -- change here
+    cur1 = conn1.cursor()
+    cur1.execute("SELECT id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip FROM "+ tablename)
+    records = cur1.fetchall()
+    #conn1.commit() -- no need to commit
 
-staging_done = DummyOperator(
-    task_id='Staging_Done',
-    dag=dag)
+    #Delete data --change here
+    cur2 = conn2.cursor()
+    cur2.execute("DELETE FROM jtiiasset." +tablename)
+    conn2.commit()
 
-datalake_start = DummyOperator(
-    task_id='Datalake_Start',
-    dag=dag)
+    print(cur2.rowcount, "Records deleted successfully from " +tablename)
 
-datalake_done = DummyOperator(
-    task_id='Datalake_Done',
-    dag=dag)
+    #Insert data -- change here
+    cur2 = conn2.cursor()
+    cur2.executemany("INSERT INTO jtiiasset." +tablename+ "(id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip) \
+        VALUES(%s, %s, %s, %s, %s, %s, %s, %s)",records)
+    conn2.commit()
 
-dimension_start = DummyOperator(
-    task_id='Dimension_Start',
-    dag=dag)
-
-dimension_done = DummyOperator(
-    task_id='Dimension_Done',
-    dag=dag)
-
-fact_start = DummyOperator(
-    task_id='Fact_Start',
-    dag=dag)
-
-fact_done = DummyOperator(
-    task_id='Fact_Done',
-    dag=dag)
-
-datamart_start = DummyOperator(
-    task_id='DataMart_Start',
-    dag=dag)
-
-datamart_done = DummyOperator(
-    task_id='DataMart_Done',
-    dag=dag)
-
-olap_start = DummyOperator(
-    task_id='OLAP_Start',
-    dag=dag)
-
-olap_done = DummyOperator(
-    task_id='OLAP_Done',
-    dag=dag)
-
-#Add database staging here ...
-jtiiasset = DummyOperator(
-    task_id='jtiiasset',
-    dag=dag)
-
-livejtiipdbms = DummyOperator(
-    task_id='livejtiipdbms',
-    dag=dag)
-
-jtiifinace = DummyOperator(
-    task_id='jtiifinace',
-    dag=dag)
-
-livejtiipayroll = DummyOperator(
-    task_id='livejtiipayroll',
-    dag=dag)
-
-#Add more database staging here ...
-
-#PythonOperator extract staging tables
-asset_inventory = PythonOperator(
-    task_id='asset_inventory',
-    python_callable=asset_inventory_function,
-    op_args=['asset_inventory'],
-    dag=dag)
-
-asset_inventory_deployment = PythonOperator(
-    task_id='asset_inventory_deployment',
-    python_callable=asset_inventory_deployment_function,
-    op_args=['asset_inventory_deployment'],
-    dag=dag)
-
-license = PythonOperator(
-    task_id='license',
-    python_callable=license_function,
-    op_args=['license'],
-    dag=dag)
-
-personal = PythonOperator(
-    task_id='personal',
-    python_callable=personal_function,
-    op_args=['personal'],
-    dag=dag)
-
-superior = PythonOperator(
-    task_id='superior',
-    python_callable=superior_function,
-    op_args=['superior'],
-    dag=dag)
-
-jobactual = PythonOperator(
-    task_id='jobactual',
-    python_callable=jobactual_function,
-    op_args=['jobactual'],
-    dag=dag)
-
-jobactualcomposite = PythonOperator(
-    task_id='jobactualcomposite',
-    python_callable=jobactualcomposite_function,
-    op_args=['jobactualcomposite'],
-    dag=dag)
-
-#DAG Sequences
-staging_start >> asset_inventory >> asset_inventory_deployment >> [personal, superior] >> jobactual >> jobactualcomposite >> staging_done
-license
+    print(cur2.rowcount, "Record inserted successfully into " +tablename)
+    
+if __name__ == '__main__':
+    fexec = lithops.FunctionExecutor(config=config)
+    fexec.call_async(license,'license')
+    print(fexec.get_result())

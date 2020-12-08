@@ -111,7 +111,7 @@ asset_inventory_deployment = PythonOperator(
 license = PythonOperator(
     task_id='license',
     python_callable=license_function,
-    op_args=['license_deployment'],
+    op_args=['license'],
     dag=dag)
 
 personal = PythonOperator(
@@ -140,4 +140,4 @@ jobactualcomposite = PythonOperator(
 
 #DAG Sequences
 staging_start >> asset_inventory >> asset_inventory_deployment >> [personal, superior] >> jobactual >> jobactualcomposite >> staging_done
-license_deployment
+license
