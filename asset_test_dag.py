@@ -7,7 +7,7 @@ from airflow.operators.dummy_operator import DummyOperator
 from datetime import datetime, timedelta
 
 # import operators from the 'operators' file
-from glo_city import glo_city _function
+from glo_city import glo_city_function
 from glo_brand import glo_brand_function
 from glo_location import glo_location_function
 from control_input import control_input_function
