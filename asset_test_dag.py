@@ -26,7 +26,7 @@ default_args = {
     "start_date": datetime(2021, 1, 1),
 }
 
-dag = DAG("asset_test_dag", default_args=default_args, schedule_interval=None)
+dag = DAG("asset_test_dag", default_args=default_args, schedule_interval="0 0 * * *")
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
@@ -161,4 +161,4 @@ sec_logmdl = PythonOperator(
 
 
 #DAG Sequences
-staging_start >> control_input >> [glo_city, glo_brand, glo_location] >> asset_inventory >> asset_inventory_deployment >> license >> license_deployment >> sec_auditlog >> sec_logmdl >> staging_done
+staging_start >> control_input >> [glo_city, glo_brand, glo_location] >> asset_inventory >> sec_auditlog >> sec_logmdl >> license_deployment >> license >> asset_inventory_deployment >> staging_done
