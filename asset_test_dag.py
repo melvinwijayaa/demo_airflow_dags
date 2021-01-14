@@ -26,7 +26,7 @@ default_args = {
     "start_date": datetime(2021, 1, 1),
 }
 
-dag = DAG("asset_test_dag", default_args=default_args, schedule_interval=)
+dag = DAG("asset_test_dag", default_args=default_args, schedule_interval='')
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
