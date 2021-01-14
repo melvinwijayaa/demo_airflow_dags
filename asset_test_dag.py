@@ -13,7 +13,7 @@ from glo_location import glo_location_function
 from asset_inventory import asset_inventory_function
 from asset_inventory_deployment import asset_inventory_deployment_function
 from license import license_function
-from license_deployment_input import license_deployment_function
+from license_deployment import license_deployment_function
 from control_input import control_input_function
 from csec_logmdl import sec_logmdl_function
 from sec_auditlog import sec_auditlog_function
@@ -26,7 +26,7 @@ default_args = {
     "start_date": datetime(2021, 1, 1),
 }
 
-dag = DAG("asset_test_dag", default_args=default_args, schedule_interval='')
+dag = DAG("asset_test_dag", default_args=default_args, schedule_interval=None)
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
