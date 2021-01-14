@@ -23,12 +23,12 @@ from sec_auditlog import sec_auditlog_function
 
 default_args = {
     "owner": "airflow",
-    "start_date": datetime(2021, 1, 1),
+    "start_date": datetime(2021, 1, 14),
     "retries": 1,
     "retry_delay": timedelta(minutes=5),
 }
 
-dag = DAG("asset_test_dag", default_args=default_args, schedule_interval="0 0 * * *")
+dag = DAG("asset_test_dag", default_args=default_args, schedule_interval=None)
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
