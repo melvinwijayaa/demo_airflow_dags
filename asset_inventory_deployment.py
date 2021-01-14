@@ -68,6 +68,10 @@ def asset_inventory_deployment(tablename):
 
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
 
+def asset_inventory_deployment_function(tablename):
+    fexec = lithops.FunctionExecutor()
+    fexec.call_async(asset_inventory,tablename)
+    print(fexec.get_result())  
 
 if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
