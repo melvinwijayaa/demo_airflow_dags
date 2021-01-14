@@ -70,7 +70,7 @@ def asset_inventory_deployment(tablename):
 
 def asset_inventory_deployment_function(tablename):
     fexec = lithops.FunctionExecutor()
-    fexec.call_async(asset_inventory,tablename)
+    fexec.call_async(asset_inventory_deployment,tablename)
     print(fexec.get_result())  
 
 if __name__ == '__main__':
