@@ -29,7 +29,7 @@ config = {
     },
 }
 def license_deployment_function(tablename):
-    fexec = lithops.FunctionExecutor(config=config)
+    fexec = lithops.FunctionExecutor()
     fexec.call_async(license_deployment,tablename)
     print(fexec.get_result())    
     
@@ -73,6 +73,6 @@ def license_deployment(tablename):
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
     
 if __name__ == '__main__':
-    fexec = lithops.FunctionExecutor(config=config)
+    fexec = lithops.FunctionExecutor()
     fexec.call_async(license_deployment,'license_deployment')
     print(fexec.get_result())
