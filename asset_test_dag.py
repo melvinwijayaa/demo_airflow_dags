@@ -15,7 +15,7 @@ from asset_inventory_deployment import asset_inventory_deployment_function
 from license import license_function
 from license_deployment import license_deployment_function
 from control_input import control_input_function
-from csec_logmdl import sec_logmdl_function
+from sec_logmdl import sec_logmdl_function
 from sec_auditlog import sec_auditlog_function
 
 # import lithops function
