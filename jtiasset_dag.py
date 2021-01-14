@@ -28,7 +28,7 @@ default_args = {
     "retry_delay": timedelta(minutes=5),
 }
 
-dag = DAG("jtiasset_dag", default_args=default_args, schedule_interval="0 0 * * *")
+dag = DAG("jtiasset_dag", default_args=default_args, schedule_interval=None)
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
