@@ -31,7 +31,7 @@ config = {
 }
 def glo_city_prod_function(tablename):
     fexec = lithops.FunctionExecutor()
-    fexec.call_async(glo_city,tablename)
+    fexec.call_async(glo_city_prod,tablename)
     print(fexec.get_result())    
     
 def glo_city_prod(tablename):
