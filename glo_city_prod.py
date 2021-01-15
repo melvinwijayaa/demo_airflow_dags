@@ -38,7 +38,6 @@ def glo_city_prod(tablename):
 
     #Fixed conexion string for connecting sqlserver -- no need to change 
     conn1 = pyodbc.connect(
-        '
         'DRIVER={PostgreSQL Unicode};'
         'Server=c0ca2771-62ed-4c2a-862e-743fda10b364.bqfh4fpt0vhjh7rs4ot0.databases.appdomain.cloud;'
         'Port=32645;'
