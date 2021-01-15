@@ -43,7 +43,7 @@ def glo_city_prod(tablename):
         'Port=32645;'
         'Database=ibmclouddb;'
         'User ID=ibm_cloud_f261f536_a6f2_4fec_b8e9_55016c16b459;'
-        'Password=a4285df0d0f18926f9c84591c78f91d402ab3d037e8ef6023f0fb4ff41e45043';
+        'Password=a4285df0d0f18926f9c84591c78f91d402ab3d037e8ef6023f0fb4ff41e45043;'
         'String Types=Unicode')
 
     #Fixed conexion string for connecting postgresql -- no need to change     
