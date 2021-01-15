@@ -16,11 +16,9 @@ from glo_city_prod import glo_city_prod_function
 default_args = {
     "owner": "airflow",
     "start_date": datetime(2021, 1, 1),
-    "retries": 1,
-    "retry_delay": timedelta(minutes=5),
 }
 
-dag = DAG("jglo_city_prod", default_args=default_args, schedule_interval=None)
+dag = DAG("glo_city_prod", default_args=default_args, schedule_interval=None)
 
 #DummyOperator DAGS here
 staging_start = DummyOperator(
