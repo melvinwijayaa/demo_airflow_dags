@@ -132,13 +132,13 @@ asset_inventory_deployment = PythonOperator(
 asset_inventory_prod = PythonOperator(
     task_id='asset_inventory_prod',
     python_callable=asset_inventory_prod_function,
-    op_args=['asset_inventory_prod'],
+    op_args=['asset_inventory'],
     dag=dag)
 
 asset_inventory_deployment_prod_ = PythonOperator(
     task_id='asset_inventory_deployment_prod',
     python_callable=asset_inventory_deployment_prod_function,
-    op_args=['asset_inventory_deployment_prod'],
+    op_args=['asset_inventory_deployment'],
     dag=dag)
 
 
