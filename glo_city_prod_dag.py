@@ -93,7 +93,7 @@ livejtiipayroll = DummyOperator(
 glo_city_prod = PythonOperator(
     task_id='glo_city_prod',
     python_callable=glo_city_prod_function,
-    op_args=['glo_city_prod'],
+    op_args=['glo_city'],
     dag=dag)
 
 #DAG Sequences
