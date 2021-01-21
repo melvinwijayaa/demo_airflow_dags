@@ -144,4 +144,4 @@ asset_inventory_deployment = PythonOperator(
 
 
 #DAG Sequences
-staging_start >> [glo_city, glo_brand, glo_location] >> asset_inventory >> asset_inventory_deployment >> staging_done >> datalake_start >> asset_inventory >> asset_inventory_deployment >> datalake_done
+staging_start >> [glo_city, glo_brand, glo_location] >> asset_inventory >> asset_inventory_deployment >> staging_done >> datalake_start >> asset_inventory_prod >> asset_inventory_deployment_prod >> datalake_done
