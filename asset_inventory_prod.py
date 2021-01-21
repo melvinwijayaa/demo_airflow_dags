@@ -69,11 +69,11 @@ def asset_inventory_prod(tablename):
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
 
 def asset_inventory_prod_function(tablename):
-    fexec = lithops.FunctionExecutor()
+    fexec = lithops.FunctionExecutor(config=config)
     fexec.call_async(asset_inventory_prod,tablename)
     print(fexec.get_result())    
     
 if __name__ == '__main__':
-    fexec = lithops.FunctionExecutor()
+    fexec = lithops.FunctionExecutor(config=config)
     fexec.call_async(asset_inventory_prod,'asset_inventory')
     print(fexec.get_result())
