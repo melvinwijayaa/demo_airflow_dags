@@ -1,4 +1,3 @@
-
 import pyodbc
 import psycopg2
 import lithops
@@ -14,17 +13,17 @@ config = {
     'runtime': 'khairulhabib/lithops-runtime-datalake:1.0.1'
     },
 'ibm':{
-    'iam_api_key': 'L8cWWexAcTm8K-XtlthzkwtNxZjxQwtnCcwr4Gj0qhkg'
+    'iam_api_key': 'HXllbHC68TncpWEzjurOOKEidQf9bTk5K7kMsNDjfyFN'
     },
 'ibm_cf':{
     'endpoint'     : 'https://jp-tok.functions.cloud.ibm.com',
-    'namespace'    : 'JTI Dev',
-    'namespace_id' : 'f02917fc-e645-4850-9dea-5f27b541b933'
+    'namespace'    : 'JTI_Dev',
+    'namespace_id' : 'eab04365-3267-4b09-b33c-bf83e04ecacc'
     },
 'ibm_cos':{
     'endpoint'    : 'https://s3.au-syd.cloud-object-storage.appdomain.cloud',
     'private_endpoint': 'https://s3.private.au-syd.cloud-object-storage.appdomain.cloud',
-    'api_key '    : 'p6D4IagLwAXetJCWAzlsyzPnWezeIPicE-2j2LggG7HO'
+    'api_key '    : 'oPCxFqLR0OX593ImB5pebiHDaqQUhkuCkbcNlIJp__1u'
     #'access_key' : <ACCESS_KEY>  # Optional
     #'secret_key' : <SECRET_KEY>  # Optional
     },
@@ -40,7 +39,7 @@ def glo_location(tablename):
     conn1 = pyodbc.connect(
         'DRIVER={ODBC Driver 17 for SQL Server};'
         'SERVER=cap-au-sg-prd-04.securegateway.appdomain.cloud,15275;'
-        'DATABASE=jtiiasset;'
+        'DATABASE=jtiiproms;'
         'UID=sa;'
         'PWD=Pas5word')
 
@@ -54,21 +53,23 @@ def glo_location(tablename):
         
     #Retrieve data -- change here
     cur1 = conn1.cursor()
-    cur1.execute("SELECT id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, name FROM "+ tablename)
+    cur1.execute("SELECT id, stat, uname, tgl, ip, createddate, \
+                createdby, code, name, address FROM "+ tablename)
     records = cur1.fetchall()
     #conn1.commit() -- no need to commit
 
     #Delete data --change here
     cur2 = conn2.cursor()
-    cur2.execute("DELETE FROM jtiiasset." +tablename)
+    cur2.execute("DELETE FROM jtiiproms." +tablename)
     conn2.commit()
 
     print(cur2.rowcount, "Records deleted successfully from " +tablename)
 
     #Insert data -- change here
     cur2 = conn2.cursor()
-    cur2.executemany("INSERT INTO jtiiasset." +tablename+ "(id, stat, createdby, createddate, createdip, updatedby, updateddate, updatedip, name) \
-        VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s)",records)
+    cur2.executemany("INSERT INTO jtiiproms." +tablename+ "(id, stat, uname, tgl, \
+                ip, createddate, createdby, code, name, address) \
+                    VALUES(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s)",records)
     conn2.commit()
 
     print(cur2.rowcount, "Record inserted successfully into " +tablename)
