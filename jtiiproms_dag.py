@@ -9,7 +9,6 @@ from datetime import datetime, timedelta
 from contract_termination_request import contract_termination_request_function
 from glo_approvalrecord import glo_approvalrecord_function
 from glo_customer import glo_customer_function
-from glo_location import glo_location_function
 from num_department import num_department_function
 from proj_contractreg import proj_contractreg_function
 from proj_mainsetting import proj_mainsetting_function
@@ -46,12 +45,6 @@ glo_customer = PythonOperator(
     task_id='glo_customer',
     python_callable=glo_customer_function,
     op_args=['glo_customer'],
-    dag=dag)
-
-glo_location = PythonOperator(
-    task_id='glo_location',
-    python_callable=glo_location_function,
-    op_args=['glo_location'],
     dag=dag)
 
 num_department = PythonOperator(
@@ -91,4 +84,4 @@ proj_warmbodyreg = PythonOperator(
     dag=dag)
 
 #DAG Sequences
-contract_termination_request >> glo_approvalrecord >> glo_customer >> glo_location >> num_department >> proj_contractreg >> proj_mainsetting >> proj_sowcategory >> proj_sowlayout >> proj_warmbodyreg
+contract_termination_request >> glo_approvalrecord >> glo_customer >> num_department >> proj_contractreg >> proj_mainsetting >> proj_sowcategory >> proj_sowlayout >> proj_warmbodyreg
