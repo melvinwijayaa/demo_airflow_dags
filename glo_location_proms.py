@@ -76,5 +76,5 @@ def glo_location_proms(tablename):
     
 if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
-    fexec.call_async(glo_location_proms,'glo_location_proms')
+    fexec.call_async(glo_location_proms,'glo_location')
     print(fexec.get_result())
