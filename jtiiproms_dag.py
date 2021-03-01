@@ -94,7 +94,7 @@ proj_warmbodyreg = PythonOperator(
 proj_departmentlist = PythonOperator(
     task_id='proj_departmentlist',
     python_callable=proj_departmentlist_function,
-    op_args=['departmentlist'],
+    op_args=['proj_departmentlist'],
     dag=dag)
 #DAG Sequences
 contract_termination_request >> glo_approvalrecord >> glo_customer >> glo_location_proms >> num_department >> proj_contractreg >> proj_mainsetting >> proj_sowcategory >> proj_sowlayout >> proj_warmbodyreg >> proj_departmentlist
