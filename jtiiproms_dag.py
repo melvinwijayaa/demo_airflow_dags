@@ -9,12 +9,14 @@ from datetime import datetime, timedelta
 from contract_termination_request import contract_termination_request_function
 from glo_approvalrecord import glo_approvalrecord_function
 from glo_customer import glo_customer_function
+from glo_location_proms import glo_location_proms_function
 from num_department import num_department_function
 from proj_contractreg import proj_contractreg_function
 from proj_mainsetting import proj_mainsetting_function
 from proj_sowcategory import proj_sowcategory_function
 from proj_sowlayout import proj_sowlayout_function
 from proj_warmbodyreg import proj_warmbodyreg_function
+from proj_departmentlist import proj_departmentlist_function
 
 
 # import lithops function
@@ -45,6 +47,12 @@ glo_customer = PythonOperator(
     task_id='glo_customer',
     python_callable=glo_customer_function,
     op_args=['glo_customer'],
+    dag=dag)
+
+glo_location_proms = PythonOperator(
+    task_id='glo_location_proms',
+    python_callable=glo_location_proms_function,
+    op_args=['glo_location_proms'],
     dag=dag)
 
 num_department = PythonOperator(
@@ -83,5 +91,10 @@ proj_warmbodyreg = PythonOperator(
     op_args=['proj_warmbodyreg'],
     dag=dag)
 
+proj_departmentlist = PythonOperator(
+    task_id='proj_departmentlist',
+    python_callable=proj_departmentlist_function,
+    op_args=['departmentlist'],
+    dag=dag)
 #DAG Sequences
-contract_termination_request >> glo_approvalrecord >> glo_customer >> num_department >> proj_contractreg >> proj_mainsetting >> proj_sowcategory >> proj_sowlayout >> proj_warmbodyreg
+contract_termination_request >> glo_approvalrecord >> glo_customer >> glo_location_proms >> num_department >> proj_contractreg >> proj_mainsetting >> proj_sowcategory >> proj_sowlayout >> proj_warmbodyreg >> proj_departmentlist
