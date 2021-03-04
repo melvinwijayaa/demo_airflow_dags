@@ -7,7 +7,7 @@ from datetime import datetime, timedelta
 
 # import operators from the 'operators' file
 from glo_payrolllock2 import glo_payrolllock2_function
-from glo_pperiod import glo_pperiod_function
+from glo_pperiod_payroll import glo_pperiod_payroll_function
 from glo_reward import glo_reward_function
 from global_ptkp import global_ptkp_function
 from global_taxpersen import global_taxpersen_function
@@ -35,10 +35,10 @@ glo_payrolllock2 = PythonOperator(
     op_args=['glo_payrolllock2'],
     dag=dag)
 
-glo_pperiod = PythonOperator(
-    task_id='glo_pperiod',
-    python_callable=glo_pperiod_function,
-    op_args=['glo_pperiod'],
+glo_pperiod_payroll = PythonOperator(
+    task_id='glo_pperiod_payroll',
+    python_callable=glo_pperiod_payroll_function,
+    op_args=['glo_pperiod_payroll'],
     dag=dag)
 
 glo_reward = PythonOperator(
@@ -84,4 +84,4 @@ personalmedical = PythonOperator(
     dag=dag)
 
 #DAG Sequences
-glo_payrolllock2 >> glo_pperiod >> glo_reward >> global_ptkp >> global_taxpersen >> kurangpajak >> kurs >> personalloan >> personalmedical
+glo_payrolllock2 >> glo_pperiod_payroll >> glo_reward >> global_ptkp >> global_taxpersen >> kurangpajak >> kurs >> personalloan >> personalmedical
