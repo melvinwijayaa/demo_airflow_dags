@@ -75,5 +75,5 @@ def glo_pperiod_payroll(tablename):
     
 if __name__ == '__main__':
     fexec = lithops.FunctionExecutor()
-    fexec.call_async(glo_pperiod_payroll,'glo_pperiod_payroll')
+    fexec.call_async(glo_pperiod_payroll,'glo_pperiod')
     print(fexec.get_result())
