@@ -38,7 +38,7 @@ glo_payrolllock2 = PythonOperator(
 glo_pperiod_payroll = PythonOperator(
     task_id='glo_pperiod_payroll',
     python_callable=glo_pperiod_payroll_function,
-    op_args=['glo_pperiod_payroll'],
+    op_args=['glo_pperiod'],
     dag=dag)
 
 glo_reward = PythonOperator(
